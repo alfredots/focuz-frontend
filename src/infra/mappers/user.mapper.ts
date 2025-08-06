@@ -1,6 +1,6 @@
-import { User } from '@/modules/users/contracts/user';
-import { UserRemoteDTO } from '@/modules/users/services/dtos/user-remote.dto';
-import { Mapper } from '@/common';
+import { User } from '@/contracts/user';
+import { UserRemoteDTO } from '@/infra/dtos/user-remote.dto';
+import { Mapper } from '@/contracts/mapper';
 
 export class UserMapperImpl implements Mapper<UserRemoteDTO, User> {
   transform(data: UserRemoteDTO): User {

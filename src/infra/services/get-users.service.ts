@@ -1,9 +1,10 @@
-import { User } from '@/modules/users/contracts/user';
-import { UserRemoteDTO } from '@/modules/users/services/dtos/user-remote.dto';
-import { makeUserMapper } from '@/modules/users/services/mappers/user.mapper';
-import { endpoints } from '@/modules/users/utils/constants';
-import { Mapper, UseCase } from '@/common';
+import { User } from '@/contracts/user';
+import { UserRemoteDTO } from '@/infra/dtos/user-remote.dto';
+import { makeUserMapper } from '@/infra/mappers/user.mapper';
+import { endpoints } from '@/utils/constants';
 import { HttpClient, HttpStatusCode, makeFetchHttpClient } from '@/packages/http';
+import { Mapper } from '@/contracts/mapper';
+import { UseCase } from '@/contracts/user-case';
 
 class GetUsersService implements UseCase<void, Promise<User[]>> {
   constructor(
