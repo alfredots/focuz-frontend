@@ -2,16 +2,17 @@ import { BottomNav } from '@/layout/bottom-nav';
 import { Header } from '@/layout/header';
 import { Outlet, createRootRoute } from '@tanstack/react-router';
 
-export const Route = createRootRoute({
-  component: RootComponent
+// Root com layout (Header + BottomNav)
+export const AppRoute = createRootRoute({
+  component: AppRootComponent
 });
 
-function RootComponent() {
+function AppRootComponent() {
   const user = { name: 'Alfredo Tito' };
 
   const handleLogout = () => {
     console.log('Usuário deslogado!');
-    // aqui você limpa o token, localStorage, etc.
+    // limpar token/localStorage/etc.
   };
 
   return (
@@ -19,6 +20,19 @@ function RootComponent() {
       <Header user={user} onLogout={handleLogout} />
       <Outlet />
       <BottomNav />
+    </div>
+  );
+}
+
+// Root sem layout (auth)
+export const AuthRoute = createRootRoute({
+  component: AuthRootComponent
+});
+
+function AuthRootComponent() {
+  return (
+    <div className="bg-stone-900 w-full h-full">
+      <Outlet />
     </div>
   );
 }

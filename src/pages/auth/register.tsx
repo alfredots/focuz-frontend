@@ -40,26 +40,25 @@ function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-full flex-col items-center justify-center px-6 py-12 lg:px-8 bg-white">
+    <div className="flex min-h-full flex-col items-center justify-center px-6 py-12 lg:px-8 bg-stone-900">
       <div className="w-full sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto">
-        {' '}
         <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" className="mx-auto h-10 w-auto" />
-        <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Crie sua conta</h2>
+        <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Crie sua conta</h2>
       </div>
 
-      <div className="mt-10 w-full sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto bg-white p-8 rounded-lg shadow-xl border border-gray-200">
-        {' '}
+      <div className="mt-10 w-full sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto bg-stone-800 p-8 rounded-lg shadow-xl border border-stone-700">
         <form onSubmit={handleSubmit} className="space-y-6">
-          {successMessage && <div className="text-center text-sm font-semibold text-green-600 col-span-full mb-4">{successMessage}</div>}
+          {successMessage && <div className="text-center text-sm font-semibold text-green-500 col-span-full mb-4">{successMessage}</div>}
           {mutation.isError && (
-            <div className="text-center text-sm font-semibold text-red-600 col-span-full mb-4">
+            <div className="text-center text-sm font-semibold text-red-500 col-span-full mb-4">
               Ocorreu um erro no registro. Por favor, tente novamente.
             </div>
           )}
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-            {' '}
+            {/* Nome completo */}
             <div>
-              <label htmlFor="name" className="block text-sm/6 font-medium text-gray-900">
+              <label htmlFor="name" className="block text-sm/6 font-medium text-white">
                 Nome completo
               </label>
               <div className="mt-2">
@@ -68,13 +67,14 @@ function RegisterPage() {
                   type="text"
                   name="name"
                   required
-                  className="block w-full rounded-md border-0 bg-white px-3 py-1.5 text-base text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md border-0 bg-stone-700 px-3 py-1.5 text-base text-white shadow-sm ring-1 ring-inset ring-stone-600 placeholder:text-stone-400 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm/6"
                 />
               </div>
             </div>
-            {/* Campo Email */}
+
+            {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
+              <label htmlFor="email" className="block text-sm/6 font-medium text-white">
                 Endereço de e-mail
               </label>
               <div className="mt-2">
@@ -84,13 +84,14 @@ function RegisterPage() {
                   name="email"
                   required
                   autoComplete="email"
-                  className="block w-full rounded-md border-0 bg-white px-3 py-1.5 text-base text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md border-0 bg-stone-700 px-3 py-1.5 text-base text-white shadow-sm ring-1 ring-inset ring-stone-600 placeholder:text-stone-400 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm/6"
                 />
               </div>
             </div>
-            {/* Campo Senha */}
+
+            {/* Senha */}
             <div>
-              <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
+              <label htmlFor="password" className="block text-sm/6 font-medium text-white">
                 Senha
               </label>
               <div className="mt-2">
@@ -100,13 +101,14 @@ function RegisterPage() {
                   name="password"
                   required
                   autoComplete="new-password"
-                  className="block w-full rounded-md border-0 bg-white px-3 py-1.5 text-base text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md border-0 bg-stone-700 px-3 py-1.5 text-base text-white shadow-sm ring-1 ring-inset ring-stone-600 placeholder:text-stone-400 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm/6"
                 />
               </div>
             </div>
-            {/* Campo Confirmar Senha */}
+
+            {/* Confirmar senha */}
             <div>
-              <label htmlFor="password_confirmation" className="block text-sm/6 font-medium text-gray-900">
+              <label htmlFor="password_confirmation" className="block text-sm/6 font-medium text-white">
                 Confirmar senha
               </label>
               <div className="mt-2">
@@ -116,25 +118,27 @@ function RegisterPage() {
                   name="password_confirmation"
                   required
                   autoComplete="new-password"
-                  className="block w-full rounded-md border-0 bg-white px-3 py-1.5 text-base text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                  className="block w-full rounded-md border-0 bg-stone-700 px-3 py-1.5 text-base text-white shadow-sm ring-1 ring-inset ring-stone-600 placeholder:text-stone-400 focus:ring-2 focus:ring-inset focus:ring-red-500 sm:text-sm/6"
                 />
               </div>
             </div>
-          </div>{' '}
+          </div>
+
+          {/* Botão de registrar */}
           <div className="mt-8">
-            {' '}
             <button
               type="submit"
               disabled={mutation.isPending}
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm/6 font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
             >
               {mutation.isPending ? 'Criando...' : 'Registrar'}
             </button>
           </div>
         </form>
-        <p className="mt-10 text-center text-sm/6 text-gray-500">
+
+        <p className="mt-10 text-center text-sm/6 text-stone-300">
           Já tem uma conta?{' '}
-          <a href="/auth/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
+          <a href="/auth/login" className="font-semibold text-red-400 hover:text-red-300">
             Entrar
           </a>
         </p>
