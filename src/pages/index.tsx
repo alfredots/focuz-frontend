@@ -1,3 +1,4 @@
+import { HabitsPage } from '@/pages/-habits/-habits.page';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
@@ -5,13 +6,5 @@ export const Route = createFileRoute('/')({
 });
 
 function RouteComponent() {
-  return (
-    <>
-      {/* Header */}
-
-      {/* Seção de ranking */}
-
-      {/* Seção de check de atividades */}
-    </>
-  );
+  return <HabitsPage />;
 }

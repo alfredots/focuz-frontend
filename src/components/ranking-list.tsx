@@ -33,7 +33,7 @@ function InitialAvatar({ name, className = '' }: { name: string; className?: str
 
 export const RankingList: React.FC<RankingListProps> = ({ users }) => {
   return (
-    <div className="bg-stone-900 shadow-md shadow-black rounded-md overflow-hidden max-w-lg mx-auto mt-16">
+    <div className="bg-stone-900 shadow-md shadow-black rounded-md overflow-hidden max-w-lg mt-16">
       <div className="bg-stone-800 py-2 px-4 border-b border-red-900">
         <h2 className="text-xl font-semibold text-white">Top Users</h2>
       </div>

@@ -12,7 +12,7 @@ function InitialAvatar({ name }: { name: string }) {
 
 export const Header: React.FC<HeaderProps> = ({ user, onLogout }) => {
   return (
-    <div className="w-full p-4 border-b border-red-800 flex items-center justify-between bg-stone-900">
+    <div className="fixed top-0 left-0 right-0 z-50 w-full p-4 border-b border-red-800 flex items-center justify-between bg-stone-900">
       {/* Título centralizado */}
       <h1 className="text-white text-2xl font-bold text-center flex-1">Focuz App</h1>
 

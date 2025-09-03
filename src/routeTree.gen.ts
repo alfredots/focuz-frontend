@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './pages/__root'
 import { Route as IndexRouteImport } from './pages/index'
 import { Route as RankingIndexRouteImport } from './pages/ranking/index'
-import { Route as HabitsIndexRouteImport } from './pages/habits/index'
 import { Route as AuthRegisterRouteImport } from './pages/auth/register'
 import { Route as AuthLoginRouteImport } from './pages/auth/login'
 
@@ -23,11 +22,6 @@ const IndexRoute = IndexRouteImport.update({
 const RankingIndexRoute = RankingIndexRouteImport.update({
   id: '/ranking/',
   path: '/ranking/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HabitsIndexRoute = HabitsIndexRouteImport.update({
-  id: '/habits/',
-  path: '/habits/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
@@ -45,14 +39,12 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/habits': typeof HabitsIndexRoute
   '/ranking': typeof RankingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/habits': typeof HabitsIndexRoute
   '/ranking': typeof RankingIndexRoute
 }
 export interface FileRoutesById {
@@ -60,28 +52,20 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/habits/': typeof HabitsIndexRoute
   '/ranking/': typeof RankingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth/login' | '/auth/register' | '/habits' | '/ranking'
+  fullPaths: '/' | '/auth/login' | '/auth/register' | '/ranking'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth/login' | '/auth/register' | '/habits' | '/ranking'
-  id:
-    | '__root__'
-    | '/'
-    | '/auth/login'
-    | '/auth/register'
-    | '/habits/'
-    | '/ranking/'
+  to: '/' | '/auth/login' | '/auth/register' | '/ranking'
+  id: '__root__' | '/' | '/auth/login' | '/auth/register' | '/ranking/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthRegisterRoute: typeof AuthRegisterRoute
-  HabitsIndexRoute: typeof HabitsIndexRoute
   RankingIndexRoute: typeof RankingIndexRoute
 }
 
@@ -99,13 +83,6 @@ declare module '@tanstack/react-router' {
       path: '/ranking'
       fullPath: '/ranking'
       preLoaderRoute: typeof RankingIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/habits/': {
-      id: '/habits/'
-      path: '/habits'
-      fullPath: '/habits'
-      preLoaderRoute: typeof HabitsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/register': {
@@ -129,7 +106,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
-  HabitsIndexRoute: HabitsIndexRoute,
   RankingIndexRoute: RankingIndexRoute,
 }
 export const routeTree = rootRouteImport

@@ -1,6 +1,6 @@
-import { Header } from '@/components/header';
+import { BottomNav } from '@/layout/bottom-nav';
+import { Header } from '@/layout/header';
 import { Outlet, createRootRoute } from '@tanstack/react-router';
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
 export const Route = createRootRoute({
   component: RootComponent
@@ -18,7 +18,7 @@ function RootComponent() {
     <div className="bg-stone-900 w-full h-full">
       <Header user={user} onLogout={handleLogout} />
       <Outlet />
-      <TanStackRouterDevtools />
+      <BottomNav />
     </div>
   );
 }
