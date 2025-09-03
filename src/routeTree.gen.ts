@@ -9,25 +9,25 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './pages/__root'
-import { Route as AboutRouteImport } from './pages/about'
 import { Route as IndexRouteImport } from './pages/index'
-import { Route as ExampleIndexRouteImport } from './pages/example/index'
+import { Route as RankingIndexRouteImport } from './pages/ranking/index'
+import { Route as HabitsIndexRouteImport } from './pages/habits/index'
 import { Route as AuthRegisterRouteImport } from './pages/auth/register'
 import { Route as AuthLoginRouteImport } from './pages/auth/login'
 
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ExampleIndexRoute = ExampleIndexRouteImport.update({
-  id: '/example/',
-  path: '/example/',
+const RankingIndexRoute = RankingIndexRouteImport.update({
+  id: '/ranking/',
+  path: '/ranking/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HabitsIndexRoute = HabitsIndexRouteImport.update({
+  id: '/habits/',
+  path: '/habits/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
@@ -43,57 +43,50 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/example': typeof ExampleIndexRoute
+  '/habits': typeof HabitsIndexRoute
+  '/ranking': typeof RankingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/example': typeof ExampleIndexRoute
+  '/habits': typeof HabitsIndexRoute
+  '/ranking': typeof RankingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/example/': typeof ExampleIndexRoute
+  '/habits/': typeof HabitsIndexRoute
+  '/ranking/': typeof RankingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/auth/login' | '/auth/register' | '/example'
+  fullPaths: '/' | '/auth/login' | '/auth/register' | '/habits' | '/ranking'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/auth/login' | '/auth/register' | '/example'
+  to: '/' | '/auth/login' | '/auth/register' | '/habits' | '/ranking'
   id:
     | '__root__'
     | '/'
-    | '/about'
     | '/auth/login'
     | '/auth/register'
-    | '/example/'
+    | '/habits/'
+    | '/ranking/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthRegisterRoute: typeof AuthRegisterRoute
-  ExampleIndexRoute: typeof ExampleIndexRoute
+  HabitsIndexRoute: typeof HabitsIndexRoute
+  RankingIndexRoute: typeof RankingIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -101,11 +94,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/example/': {
-      id: '/example/'
-      path: '/example'
-      fullPath: '/example'
-      preLoaderRoute: typeof ExampleIndexRouteImport
+    '/ranking/': {
+      id: '/ranking/'
+      path: '/ranking'
+      fullPath: '/ranking'
+      preLoaderRoute: typeof RankingIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/habits/': {
+      id: '/habits/'
+      path: '/habits'
+      fullPath: '/habits'
+      preLoaderRoute: typeof HabitsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/register': {
@@ -127,10 +127,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
-  ExampleIndexRoute: ExampleIndexRoute,
+  HabitsIndexRoute: HabitsIndexRoute,
+  RankingIndexRoute: RankingIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
