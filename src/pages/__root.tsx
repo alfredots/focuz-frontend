@@ -1,13 +1,12 @@
 import { BottomNav } from '@/layout/bottom-nav';
 import { Header } from '@/layout/header';
-import { Outlet, createRootRoute } from '@tanstack/react-router';
+import { Outlet, createRootRoute, useRouterState } from '@tanstack/react-router';
 
-// Root com layout (Header + BottomNav)
-export const AppRoute = createRootRoute({
-  component: AppRootComponent
+export const Route = createRootRoute({
+  component: RootComponent
 });
 
-function AppRootComponent() {
+function RootComponent() {
   const user = { name: 'Alfredo Tito' };
 
   const handleLogout = () => {
@@ -15,24 +14,18 @@ function AppRootComponent() {
     // limpar token/localStorage/etc.
   };
 
+  // Pegando a rota atual
+  const location = useRouterState({
+    select: (state) => state.location // extrai só a parte da localização
+  });
+
+  const isAuth = location.pathname.includes('auth');
+
   return (
     <div className="bg-stone-900 w-full h-full">
-      <Header user={user} onLogout={handleLogout} />
+      {!isAuth && <Header user={user} onLogout={handleLogout} />}
       <Outlet />
-      <BottomNav />
-    </div>
-  );
-}
-
-// Root sem layout (auth)
-export const AuthRoute = createRootRoute({
-  component: AuthRootComponent
-});
-
-function AuthRootComponent() {
-  return (
-    <div className="bg-stone-900 w-full h-full">
-      <Outlet />
+      {!isAuth && <BottomNav />}
     </div>
   );
 }
