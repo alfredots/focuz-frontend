@@ -1,36 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 type HabitProps = {
-  id: number;
   name: string;
   done: boolean;
+  onToggle: () => void;
 };
 
-export const Habit: React.FC<HabitProps> = ({ id, name, done }) => {
-  const [isDone, setIsDone] = useState(done);
-
-  const toggleHabit = async () => {
-    try {
-      // manda pro backend
-      await fetch(`/api/habits/${id}/toggle`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ done: !isDone })
-      });
-
-      // atualiza no frontend
-      setIsDone(!isDone);
-    } catch (error) {
-      console.error('Erro ao atualizar hábito:', error);
-    }
-  };
-
+export const Habit: React.FC<HabitProps> = ({ name, done, onToggle }) => {
   return (
-    <button
-      onClick={toggleHabit}
-      className={`px-4 py-2 rounded-md border ${isDone ? 'bg-green-600 text-white border-green-600' : 'bg-gray-200 text-gray-800 border-gray-400'}`}
-    >
-      {name} {isDone ? '✅' : ''}
-    </button>
+    <label className="flex items-center space-x-2 cursor-pointer">
+      <input
+        type="checkbox"
+        checked={done}
+        onChange={onToggle}
+        className="form-checkbox h-5 w-5 text-green-600 border-gray-400 focus:ring-green-500"
+      />
+      <span className={done ? 'text-white font-semibold' : 'text-white'}>
+        {name} {done ? '✅' : ''}
+      </span>
+    </label>
   );
 };

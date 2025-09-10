@@ -1,7 +1,27 @@
 import { Habit } from '@/components/habit';
 import { useHabitsModel } from '@/pages/-habits/-habits.model';
+import React, { useState } from 'react';
 
 export const HabitsView = (props: ReturnType<typeof useHabitsModel>) => {
+  const [habitsState, setHabitsState] = useState(props.habits);
+
+  const handleToggle = (id: number) => {
+    setHabitsState((prev) => prev.map((habit) => (habit.id === id ? { ...habit, done: !habit.done } : habit)));
+  };
+
+  const handleRegistrar = async () => {
+    try {
+      await fetch('/api/habits/registrar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ habits: habitsState })
+      });
+      // Você pode adicionar um feedback visual aqui se quiser
+    } catch (error) {
+      console.error('Erro ao registrar hábitos:', error);
+    }
+  };
+
   return (
     <div className="w-full h-svh p-4 mt-16">
       <h1 className="text-white text-3xl text-center pt-8">Seus hábitos</h1>
@@ -12,10 +32,13 @@ export const HabitsView = (props: ReturnType<typeof useHabitsModel>) => {
         </p>
 
         <div className="flex flex-col gap-4">
-          {props.habits.map((habit) => (
-            <Habit key={habit.name} id={habit.id} name={habit.name} done={habit.done} />
+          {habitsState.map((habit) => (
+            <Habit key={habit.name} name={habit.name} done={habit.done} onToggle={() => handleToggle(habit.id)} />
           ))}
         </div>
+        <button onClick={handleRegistrar} className="mt-8 px-6 py-2 bg-green-600 text-white rounded-md font-bold hover:bg-green-700">
+          Registrar
+        </button>
       </div>
     </div>
   );
