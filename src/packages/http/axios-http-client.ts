@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-
 import { HttpClient, HttpRequest, HttpResponse } from '.';
 
 export interface ErrorDetail {
@@ -13,14 +12,12 @@ export interface ErrorResponse {
 }
 
 export interface BackendErrorResponse {
-  errors:
-    | { [key: string]: string[] } // Quando os erros são associados a campos específicos
-    | ErrorDetail[]; // Quando os erros são gerais (como no segundo objeto)
-  type?: string; // Campo opcional, já que o segundo objeto não tem esse campo
-  title?: string; // Campo opcional
-  status?: number; // Campo opcional
-  traceId?: string; // Campo opcional
-  success?: boolean; // Campo opcional, presente no segundo objeto
+  errors: { [key: string]: string[] } | ErrorDetail[];
+  type?: string;
+  title?: string;
+  status?: number;
+  traceId?: string;
+  success?: boolean;
 }
 
 class AxiosHttpClient implements HttpClient {
@@ -28,11 +25,22 @@ class AxiosHttpClient implements HttpClient {
     let axiosResponse: AxiosResponse;
 
     try {
+      // pega o token do localStorage
+      const token = localStorage.getItem('authToken');
+
+      // Rotas que ficam abertas (sem token)
+      const openRoutes = ['/ogin', '/register'];
+
+      const isOpenRoute = openRoutes.some((route) => data.url?.endsWith(route));
+
       axiosResponse = await axios.request({
         url: data.url,
         method: data.method,
         data: data.body,
-        headers: data.headers
+        headers: {
+          ...data.headers,
+          ...(token && !isOpenRoute ? { Authorization: `Bearer ${token}` } : {})
+        }
       });
     } catch (er) {
       const error = er as AxiosError;
@@ -43,7 +51,7 @@ class AxiosHttpClient implements HttpClient {
         status,
         data: message,
         statusText: String(error.status),
-        headers: error.response!.headers,
+        headers: error.response?.headers || {},
         config: error.config!
       };
     }

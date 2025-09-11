@@ -14,18 +14,9 @@ class GetTasksService implements UseCase<void, Promise<Task[]>> {
   ) {}
 
   async execute(): Promise<Task[]> {
-    const authToken = localStorage.getItem('authToken');
-
-    if (!authToken) {
-      throw new Error('No auth token found');
-    }
-
     const response = await this.http.request<TaskRemoteDTO[]>({
       url: this.url + '/tasks',
-      method: 'get',
-      headers: {
-        Authorization: `Bearer ${authToken}`
-      }
+      method: 'get'
     });
 
     if (response.body === undefined) {
