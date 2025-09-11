@@ -1,4 +1,4 @@
-import { Ranking } from '@/contracts/ranking';
+import { Ranking } from '@/contracts/ranking.entity';
 import { UseCase } from '@/contracts/user-case';
 import { useQuery } from '@tanstack/react-query';
 

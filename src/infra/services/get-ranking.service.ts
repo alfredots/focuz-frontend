@@ -1,6 +1,6 @@
-import { Ranking } from '@/contracts/ranking';
+import { Ranking } from '@/contracts/ranking.entity';
 import { endpoints } from '@/utils/constants';
-import { HttpClient, HttpStatusCode, makeFetchHttpClient } from '@/packages/http';
+import { HttpClient, HttpStatusCode, makeAxiosHttpClient } from '@/packages/http';
 import { UseCase } from '@/contracts/user-case';
 
 class GetRankingService implements UseCase<void, Promise<Ranking>> {
@@ -29,4 +29,4 @@ class GetRankingService implements UseCase<void, Promise<Ranking>> {
   }
 }
 
-export const makeGetRankingService = () => new GetRankingService(endpoints.focuz, makeFetchHttpClient());
+export const makeGetRankingService = () => new GetRankingService(endpoints.focuz, makeAxiosHttpClient());

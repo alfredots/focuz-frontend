@@ -1,29 +1,9 @@
 import { Habit } from '@/components/habit';
 import { ConfirmationModal } from '@/components/confirmation-modal';
 import { useHabitsModel } from '@/pages/-habits/-habits.model';
-import React, { useState } from 'react';
 
 export const HabitsView = (props: ReturnType<typeof useHabitsModel>) => {
-  const [habitsState, setHabitsState] = useState(props.habits);
-  const [showModal, setShowModal] = useState(false);
-
-  const handleToggle = (id: number) => {
-    setHabitsState((prev) => prev.map((habit) => (habit.id === id ? { ...habit, done: !habit.done } : habit)));
-  };
-
-  const handleRegistrar = async () => {
-    try {
-      await fetch('/api/habits/registrar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ habits: habitsState })
-      });
-      setShowModal(false);
-      // Você pode adicionar um feedback visual aqui se quiser
-    } catch (error) {
-      console.error('Erro ao registrar hábitos:', error);
-    }
-  };
+  const { tasksState, handleRegister, handleToggle, isLoading, showModal, setShowModal } = props;
 
   return (
     <div className="w-full h-svh p-4 mt-16">
@@ -35,9 +15,11 @@ export const HabitsView = (props: ReturnType<typeof useHabitsModel>) => {
         </p>
 
         <div className="flex flex-col gap-4">
-          {habitsState.map((habit) => (
-            <Habit key={habit.name} name={habit.name} done={habit.done} onToggle={() => handleToggle(habit.id)} />
-          ))}
+          {isLoading ? (
+            <span className="text-white text-xl mt-8">Carregando...</span>
+          ) : (
+            tasksState.map((task) => <Habit key={task.id + task.name} name={task.name} done={task.done} onToggle={() => handleToggle(task.id)} />)
+          )}
         </div>
         <button onClick={() => setShowModal(true)} className="mt-8 px-6 py-2 bg-green-600 text-white rounded-md font-bold hover:bg-green-700">
           Registrar
@@ -45,7 +27,7 @@ export const HabitsView = (props: ReturnType<typeof useHabitsModel>) => {
         <ConfirmationModal
           open={showModal}
           text="Tem certeza que deseja registrar os hábitos marcados?"
-          onConfirm={handleRegistrar}
+          onConfirm={handleRegister}
           onCancel={() => setShowModal(false)}
         />
       </div>
