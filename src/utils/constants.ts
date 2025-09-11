@@ -1,4 +1,4 @@
 export const endpoints = {
   users: 'https://jsonplaceholder.typicode.com/users',
-  focuz: 'http://api-focuz.test/api'
+  focuz: 'http://localhost:8080/api'
 };
