@@ -20,7 +20,7 @@ export const useHabitsModel = ({ getTasks, registerTasks }: UseHabitsModelProps)
 
   // mutation para registrar os hábitos
   const mutation = useMutation({
-    mutationFn: (habits: Task[]) => registerTasks.execute(habits),
+    mutationFn: (tasks: Task[]) => registerTasks.execute(tasks),
     onSuccess: () => {
       setShowModal(false);
       setErrorMessage(null);
