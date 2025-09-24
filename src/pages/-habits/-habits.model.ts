@@ -1,34 +1,45 @@
 import { Task } from '@/contracts/task.entity';
 import { UseCase } from '@/contracts/user-case';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 type UseHabitsModelProps = {
   getTasks: UseCase<void, Promise<Task[]>>;
+  registerTasks: UseCase<Task[], Promise<void>>; // Novo caso de uso para registrar hábitos
 };
 
-export const useHabitsModel = ({ getTasks }: UseHabitsModelProps) => {
-  const { data, isLoading, isSuccess } = useQuery({ queryKey: ['tasks'], queryFn: () => getTasks.execute() });
+export const useHabitsModel = ({ getTasks, registerTasks }: UseHabitsModelProps) => {
+  const { data, isLoading, isSuccess, refetch } = useQuery({
+    queryKey: ['tasks'],
+    queryFn: () => getTasks.execute()
+  });
 
   const [tasksState, setTasksState] = useState<Task[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // mutation para registrar os hábitos
+  const mutation = useMutation({
+    mutationFn: (habits: Task[]) => registerTasks.execute(habits),
+    onSuccess: () => {
+      setShowModal(false);
+      setErrorMessage(null);
+      console.log('Hábitos registrados com sucesso!');
+      refetch(); // opcional, caso queira atualizar a lista após registrar
+    },
+    onError: (error) => {
+      console.error('Erro ao registrar hábitos:', error);
+      setErrorMessage('Não foi possível registrar os hábitos. Tente novamente.');
+    }
+  });
 
   const handleToggle = (id: number) => {
     setTasksState((prev) => prev.map((task) => (task.id === id ? { ...task, done: !task.done } : task)));
   };
 
-  const handleRegister = async () => {
-    try {
-      await fetch('/api/habits/registrar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ habits: tasksState })
-      });
-      setShowModal(false);
-      // Você pode adicionar um feedback visual aqui se quiser
-    } catch (error) {
-      console.error('Erro ao registrar hábitos:', error);
-    }
+  const handleRegister = () => {
+    setErrorMessage(null);
+    mutation.mutate(tasksState);
   };
 
   useEffect(() => {
@@ -37,5 +48,14 @@ export const useHabitsModel = ({ getTasks }: UseHabitsModelProps) => {
     }
   }, [isSuccess, data]);
 
-  return { isLoading, handleRegister, showModal, handleToggle, tasksState, setShowModal };
+  return {
+    isLoading,
+    mutation,
+    errorMessage,
+    handleRegister,
+    handleToggle,
+    tasksState,
+    showModal,
+    setShowModal
+  };
 };
