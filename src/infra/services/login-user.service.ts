@@ -17,8 +17,6 @@ class LoginUserService implements UseCase<LoginRequestDTO, Promise<LoginApiRespo
       body: data
     });
 
-    console.log();
-
     if (response.body === undefined) {
       throw new Error('Retornou Undefined');
     }

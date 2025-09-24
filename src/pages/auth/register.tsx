@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useMutation } from '@tanstack/react-query';
 import { registerUser } from '../../infra/services/authService';
 import { useState } from 'react';
+import FocuzIcon from '@/assets/focuz-icon.png';
 
 export const Route = createFileRoute('/auth/register')({
   component: RegisterPage
@@ -40,9 +41,9 @@ function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-full flex-col items-center justify-center px-6 py-12 lg:px-8 bg-stone-900">
+    <div className="flex h-svh flex-col items-center justify-center px-6 py-12 lg:px-8 bg-stone-900">
       <div className="w-full sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto">
-        <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" className="mx-auto h-10 w-auto" />
+        <img src={FocuzIcon} alt="Your Company" className="mx-auto h-10 w-auto" />
         <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Crie sua conta</h2>
       </div>
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from '@tanstack/react-router';
-import { Trophy, ListChecks } from 'lucide-react';
+import { Trophy, ListChecks, Settings } from 'lucide-react';
 
 export const BottomNav: React.FC = () => {
   const navItems = [
     { path: '/ranking', label: 'Ranking', icon: <Trophy size={20} /> },
-    { path: '/', label: 'Hábitos', icon: <ListChecks size={20} /> }
-    // { path: '/gerenciar', label: 'Gerenciar', icon: <Settings size={20} /> }
+    { path: '/', label: 'Hábitos', icon: <ListChecks size={20} /> },
+    { path: '/create-task', label: 'Criar Atividade', icon: <Settings size={20} /> }
   ];
 
   return (
